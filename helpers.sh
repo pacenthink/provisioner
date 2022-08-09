@@ -22,7 +22,7 @@ register_nginx_to_consul() {
 }
 
 setup_service() {
-    stat ./services/${1}.service 2 > /dev/null && cp ./services/${1}.service ${SERVICES_DIR}/${1}.service
+    stat ./services/${1}.service 2 > /dev/null && cp -f ./services/${1}.service ${SERVICES_DIR}/${1}.service
     systemctl enable ${SERVICES_DIR}/${1}.service
     service ${1} start
 }
