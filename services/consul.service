@@ -7,7 +7,7 @@ Restart=always
 ExecStartPre=-/usr/bin/docker stop %n
 ExecStartPre=-/usr/bin/docker rm %n
 ExecStartPre=/usr/bin/docker pull consul
-ExecStart=/usr/bin/docker run --rm --net=host --name %n consul
+ExecStart=/usr/bin/docker run --rm --net=host --name %n consul consul agent -data-dir=/consul/data -config-dir=/consul/config -client 0.0.0.0 -enable-script-checks
 ExecStop=/usr/bin/docker stop -t 2 %n
 
 [Install]
