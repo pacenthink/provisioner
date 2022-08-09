@@ -22,12 +22,13 @@ register_nginx_to_consul() {
 }
 
 setup_service() {
-    stat ./services/${1}.service 2 > /dev/null && cp -f ./services/${1}.service ${SERVICES_DIR}/${1}.service
+    cp -f ./services/${1}.service ${SERVICES_DIR}/${1}.service
     systemctl enable ${SERVICES_DIR}/${1}.service
     service ${1} start
 }
 
 setup_base_services() {
     amazon-linux-extras install docker
-    setup_service docker;
+    systemctl enable docker.service
+    service docker start
 }
