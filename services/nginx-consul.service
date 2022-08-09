@@ -1,0 +1,16 @@
+[Unit]
+Description=Nginx (consul) Container
+After=consul.service
+Requires=consul.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull ghcr.io/euforia/nginx-consul
+ExecStart=/usr/bin/docker run --rm --net=host --name %n ghcr.io/euforia/nginx-consul
+ExecStop=/usr/bin/docker stop -t 2 %n
+
+[Install]
+WantedBy=default.target

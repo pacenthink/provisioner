@@ -1,0 +1,14 @@
+[Unit]
+Description=Consul Container
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull consul
+ExecStart=/usr/bin/docker run --rm --net=host --name %n consul
+ExecStop=/usr/bin/docker stop -t 2 %n
+
+[Install]
+WantedBy=default.target
