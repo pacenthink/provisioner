@@ -44,3 +44,9 @@ setup_proxy() {
     sleep 5;
     register_nginx_to_consul;
 }
+
+setup_worker() {
+    setup_docker;
+    setup_service consul;
+    setup_service nomad;
+}
