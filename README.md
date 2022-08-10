@@ -2,7 +2,9 @@
 
 This repo is used to provision infrastructure for the HashiStack.
 
-## user-data.sh
+## provision.sh
+
+This is the entrypoint for all executed tasks.
 
 ### Pre-requisites
 
@@ -16,5 +18,5 @@ yum -y install git
 ```
 git clone https://github.com/pacenthink/provisioner
 cd provisioner
-./provision.sh [proxy|worker|master]
+./provision.sh [proxy | worker | master]
 ```
