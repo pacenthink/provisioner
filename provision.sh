@@ -4,10 +4,22 @@ set -e
 
 source ./helpers.sh;
 
-setup_docker;
+case $1 in
 
-setup_service consul;
-setup_service nginx-consul;
+  proxy)
+    setup_proxy
+    ;;
 
-sleep 5;
-register_nginx_to_consul;
+  worker)
+    setup_worker
+    ;;
+
+  master)
+    setup_master
+    ;;
+
+  *)
+    echo "Role not supported: $1";
+    exit 1;
+    ;;
+esac

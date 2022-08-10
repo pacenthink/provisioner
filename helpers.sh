@@ -1,8 +1,9 @@
 
 SERVICES_DIR="/usr/lib/systemd/system"
+CONSUL_API_URL="127.0.0.1:8500/v1/agent/service/register"
 
 register_nginx_to_consul() {
-    curl -XPUT 127.0.0.1:8500/v1/agent/service/register -d '{
+    curl -XPUT "${CONSUL_API_URL}?replace-existing-checks=true" -d '{
         "Name": "nginx-consul",
         "Address": "127.0.0.1",
         "Port": 80,
@@ -10,7 +11,7 @@ register_nginx_to_consul() {
         "EnableTagOverride": false,
         "Check": {
             "DeregisterCriticalServiceAfter": "30m",
-            "Args": ["curl", "127.0.0.1:80"],
+            "HTTP": "/",
             "Interval": "20s",
             "Timeout": "5s"
         },
@@ -33,4 +34,13 @@ setup_docker() {
         systemctl enable docker.service
         service docker start
     }
+}
+
+setup_proxy() {
+    setup_docker;
+    setup_service consul;
+    setup_service nginx-consul;
+
+    sleep 5;
+    register_nginx_to_consul;
 }

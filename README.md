@@ -16,5 +16,5 @@ yum -y install git
 ```
 git clone https://github.com/pacenthink/provisioner
 cd provisioner
-./provision.sh
+./provision.sh [proxy|worker|master]
 ```
