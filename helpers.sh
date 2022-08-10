@@ -38,7 +38,7 @@ setup_docker() {
 
 setup_proxy() {
     setup_docker;
-    setup_service consul;
+    setup_service consul-agent;
     setup_service nginx-consul;
 
     sleep 5;
@@ -47,6 +47,11 @@ setup_proxy() {
 
 setup_worker() {
     setup_docker;
-    setup_service consul;
-    setup_service nomad;
+    setup_service consul-agent;
+    setup_service nomad-agent;
+}
+
+setup_master() {
+    echo "TO BE IMPLEMENTED";
+    exit 128;
 }

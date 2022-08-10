@@ -5,7 +5,6 @@ set -e
 source ./helpers.sh;
 
 case $1 in
-
   proxy)
     setup_proxy
     ;;
