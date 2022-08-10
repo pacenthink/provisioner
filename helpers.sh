@@ -27,7 +27,7 @@ setup_service() {
     service ${1} start
 }
 
-setup_base_services() {
+setup_docker() {
     which docker || {
         amazon-linux-extras install docker
         systemctl enable docker.service

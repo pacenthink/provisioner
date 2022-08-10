@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-set -e 
+set -e
 
 source ./helpers.sh;
 
-setup_base_services;
+setup_docker;
 
 setup_service consul;
 setup_service nginx-consul;
