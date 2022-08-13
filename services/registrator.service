@@ -1,0 +1,16 @@
+[Unit]
+Description=Registrator Container
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull gliderlabs/registrator
+ExecStart=/usr/bin/docker run --rm --net=host --volume=/var/run/docker.sock:/tmp/docker.sock --name %n gliderlabs/registrator consul://127.0.0.1:8500
+ExecStop=/usr/bin/docker stop -t 2 %n
+
+[Install]
+WantedBy=default.target
