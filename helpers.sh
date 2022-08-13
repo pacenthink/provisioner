@@ -24,8 +24,11 @@ register_nginx_to_consul() {
 }
 
 setup_service() {
+    # Copy startup file
     cp -f ./services/${1}.service ${SERVICES_DIR}/${1}.service
+    # Enable on boot
     systemctl enable ${SERVICES_DIR}/${1}.service
+    # Start service
     service ${1} start
 }
 
@@ -42,14 +45,15 @@ setup_proxy() {
     setup_service consul-agent;
     setup_service nginx-consul;
 
-    sleep 5;
-    register_nginx_to_consul;
+    # sleep 5;
+    # register_nginx_to_consul;
 }
 
 setup_worker() {
     setup_docker;
     setup_service consul-agent;
-    setup_service nomad-agent;
+    # setup_service nomad-agent;
+    # setup_service registrator;
 }
 
 setup_master() {
